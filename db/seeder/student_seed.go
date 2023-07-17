@@ -37,7 +37,7 @@ func StudentSeed(db *sql.DB) {
 
 	// Eksekusi prepared statement untuk setiap data
 	for _, student := range students {
-		_, err = stmt.Exec(student)
+		_, err = stmt.Exec(student.Id, student.Name, student.DateOfBirth, student.CreatedAt, student.DeletedAt)
 		if err != nil {
 			log.Fatal(err)
 		}

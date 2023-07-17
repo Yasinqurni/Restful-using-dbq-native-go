@@ -3,8 +3,8 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	model "github-dbq/src/models"
-	"log"
 )
 
 type studentRepository struct {
@@ -49,8 +49,8 @@ func (r *studentRepository) Get(ctx context.Context) (*[]model.Student, error) {
 
 func (r *studentRepository) GetByID(id uint, ctx context.Context) (*model.Student, error) {
 
-	query := "SELECT id, name, email FROM users WHERE id = ?"
-	row := r.db.QueryRow(query, id)
+	query := "SELECT * FROM students WHERE id = ?"
+	row := r.db.QueryRowContext(ctx, query, id)
 
 	var student model.Student
 	err := row.Scan(
@@ -61,7 +61,10 @@ func (r *studentRepository) GetByID(id uint, ctx context.Context) (*model.Studen
 		&student.DeletedAt,
 	)
 	if err != nil {
-		log.Fatal(err)
+		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("student not found")
+		}
+		return nil, err
 	}
 	return &student, nil
 

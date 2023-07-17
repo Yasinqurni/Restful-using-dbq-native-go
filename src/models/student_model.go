@@ -5,11 +5,11 @@ import (
 )
 
 type Student struct {
-	Id          uint
-	Name        string
-	DateOfBirth time.Time
-	CreatedAt   time.Time
-	DeletedAt   time.Time
+	Id          uint      `dbq:"id"`
+	Name        string    `dbq:"name"`
+	DateOfBirth time.Time `dbq:"date_of_birth"`
+	CreatedAt   time.Time `dbq:"created_at"`
+	DeletedAt   time.Time `dbq:"deleted_at"`
 }
 
 func (s *Student) GetTableName() string {
