@@ -6,16 +6,16 @@ import (
 )
 
 type Attendance struct {
-	ID          uint
-	Absen       bool
-	Date        sql.NullTime
-	StudentID   uint
-	ClassroomID uint
-	UpdatedAt   time.Time
-	CreatedAt   time.Time
-	DeletedAt   time.Time
+	ID          uint         `dbq:"id"`
+	Absen       bool         `dbq:"absen"`
+	Date        sql.NullTime `dbq:"date"`
+	StudentID   uint         `dbq:"student_id"`
+	ClassroomID uint         `dbq:"classroom_id"`
+	UpdatedAt   time.Time    `dbq:"updated_at"`
+	CreatedAt   time.Time    `dbq:"created_at"`
+	DeletedAt   time.Time    `dbq:"deleted_at"`
 
 	//relations
-	Student   *Student
-	Classroom *Classroom
+	Student   *Student   `dbq:"-"`
+	Classroom *Classroom `dbq:"-"`
 }
