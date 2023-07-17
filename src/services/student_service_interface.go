@@ -5,6 +5,6 @@ import (
 )
 
 type StudentService interface {
-	Get() (*[]model.Student, error)
+	Get() ([]*model.Student, error)
 	GetByID(id uint) (*model.Student, error)
 }

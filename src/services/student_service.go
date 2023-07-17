@@ -14,8 +14,8 @@ func StudentServiceImpl(repository repository.StudentRepository) StudentService 
 	return &studentService{repository: repository}
 }
 
-func (s *studentService) Get() (*[]model.Student, error) {
-	var ctx context.Context
+func (s *studentService) Get() ([]*model.Student, error) {
+	ctx := context.Background()
 	students, err := s.repository.Get(ctx)
 	if err != nil {
 		return nil, err

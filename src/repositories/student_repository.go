@@ -3,48 +3,47 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
+	"github-dbq/config"
 	model "github-dbq/src/models"
+	"time"
+
+	"github.com/rocketlaunchr/dbq/v2"
 )
 
 type studentRepository struct {
-	db *sql.DB
+	db     *sql.DB
+	config *config.Config
 }
 
-func StudentRepositoryImpl(db *sql.DB) StudentRepository {
-	return &studentRepository{db: db}
+func StudentRepositoryImpl(db *sql.DB, config *config.Config) StudentRepository {
+	return &studentRepository{db: db, config: config}
 }
 
-func (r *studentRepository) Get(ctx context.Context) (*[]model.Student, error) {
+var student model.Student
 
-	query := "SELECT * FROM students"
-	rows, err := r.db.Query(query)
+func (r *studentRepository) Get(ctx context.Context) ([]*model.Student, error) {
+
+	duration, err := time.ParseDuration(r.config.CustomTimout)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
 
-	var students []model.Student
-	for rows.Next() {
-		var student model.Student
-		err := rows.Scan(
-			&student.Id,
-			&student.Name,
-			&student.DateOfBirth,
-			&student.CreatedAt,
-			&student.DeletedAt,
-		)
-		if err != nil {
-			return nil, err
-		}
-		students = append(students, student)
+	ctx, cancel := context.WithTimeout(ctx, duration)
+	defer cancel()
+
+	stmt := fmt.Sprintf("SELECT * FROM %s", student.GetTableName())
+	opts := &dbq.Options{SingleResult: false, ConcreteStruct: student, DecoderConfig: dbq.StdTimeConversionConfig()}
+	data := dbq.MustQ(ctx, r.db, stmt, opts)
+
+	result := data.([]*model.Student)
+
+	if len(result) == 0 || result == nil {
+		return nil, errors.New("students not found")
 	}
 
-	if err = rows.Err(); err != nil {
-		return nil, err
-	}
-
-	return &students, nil
+	return result, nil
 }
 
 func (r *studentRepository) GetByID(id uint, ctx context.Context) (*model.Student, error) {
@@ -56,7 +55,7 @@ func (r *studentRepository) GetByID(id uint, ctx context.Context) (*model.Studen
 	err := row.Scan(
 		&student.Id,
 		&student.Name,
-		&student.DateOfBirth,
+		&student.Age,
 		&student.CreatedAt,
 		&student.DeletedAt,
 	)
