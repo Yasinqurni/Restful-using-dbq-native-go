@@ -1,13 +1,14 @@
 swagger: '2.0'
 info:
   version: '1.0'
-  title: Salt Academy
+  title: Simple RESTul API  using DBQ
   contact: {}
-host: localhost:port
+host: localhost:7171
 basePath: /
 securityDefinitions: {}
 schemes:
 - https
+- http
 consumes:
 - application/json
 produces:
@@ -25,10 +26,138 @@ paths:
       parameters: []
       responses:
         '200':
-          description: ''
-          headers: {}
-  /:
+          description: OK
+          schema:
+            type: array
+            default: ''
+            items:
+              $ref: '#/definitions/getall'
+          examples:
+            application/json:
+            - Id: 1
+              Name: aku ke-1
+              Age: 15
+              DateOfBirth: 1995-12-12T00:00:00+07:00
+              UpdatedAt: 2023-07-17T23:07:03+07:00
+              CreatedAt: 2023-07-17T23:07:03+07:00
+              DeletedAt: 0001-01-01T00:00:00Z
+            - Id: 2
+              Name: aku ke-2
+              Age: 15
+              DateOfBirth: 1995-12-12T00:00:00+07:00
+              UpdatedAt: 2023-07-17T23:07:03+07:00
+              CreatedAt: 2023-07-17T23:07:03+07:00
+              DeletedAt: 0001-01-01T00:00:00Z
+            - Id: 3
+              Name: aku ke-3
+              Age: 15
+              DateOfBirth: 1995-12-12T00:00:00+07:00
+              UpdatedAt: 2023-07-17T23:07:03+07:00
+              CreatedAt: 2023-07-17T23:07:03+07:00
+              DeletedAt: 0001-01-01T00:00:00Z
+            - Id: 4
+              Name: aku ke-1
+              Age: 15
+              DateOfBirth: 1995-12-12T00:00:00+07:00
+              UpdatedAt: 2023-07-17T23:07:22+07:00
+              CreatedAt: 2023-07-17T23:07:22+07:00
+              DeletedAt: 0001-01-01T00:00:00Z
+            - Id: 5
+              Name: aku ke-2
+              Age: 15
+              DateOfBirth: 1995-12-12T00:00:00+07:00
+              UpdatedAt: 2023-07-17T23:07:22+07:00
+              CreatedAt: 2023-07-17T23:07:22+07:00
+              DeletedAt: 0001-01-01T00:00:00Z
+            - Id: 6
+              Name: aku ke-3
+              Age: 15
+              DateOfBirth: 1995-12-12T00:00:00+07:00
+              UpdatedAt: 2023-07-17T23:07:22+07:00
+              CreatedAt: 2023-07-17T23:07:22+07:00
+              DeletedAt: 0001-01-01T00:00:00Z
+            - Id: 7
+              Name: yasin
+              Age: 29
+              DateOfBirth: 1995-12-12T00:00:00+07:00
+              UpdatedAt: 2023-07-17T23:07:37+07:00
+              CreatedAt: 2023-07-17T23:07:37+07:00
+              DeletedAt: 0001-01-01T00:00:00Z
+          headers:
+            Date:
+              type: string
+              default: Mon, 17 Jul 2023 16:25:04 GMT
+            Content-Length:
+              type: string
+              default: '1350'
+    post:
+      summary: Create
+      tags:
+      - Misc
+      operationId: Create
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/CreateRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/NewRequest'
+          examples:
+            application/json:
+              message: create successfully
+          headers:
+            Date:
+              type: string
+              default: Mon, 17 Jul 2023 16:26:06 GMT
+            Content-Length:
+              type: string
+              default: '34'
+  /{id}:
     get:
+      summary: get detail
+      tags:
+      - Misc
+      operationId: getdetail
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+        format: int32
+        description: ''
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/getdetail'
+          examples:
+            application/json:
+              Id: 7
+              Name: yasin
+              Age: 29
+              DateOfBirth: 1995-12-12T00:00:00+07:00
+              UpdatedAt: 2023-07-17T23:07:37+07:00
+              CreatedAt: 2023-07-17T23:07:37+07:00
+              DeletedAt: 0001-01-01T00:00:00Z
+          headers:
+            Date:
+              type: string
+              default: Mon, 17 Jul 2023 16:25:21 GMT
+            Content-Length:
+              type: string
+              default: '190'
+    put:
       summary: update
       tags:
       - Misc
@@ -36,11 +165,196 @@ paths:
       deprecated: false
       produces:
       - application/json
-      parameters: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+        format: int32
+        description: ''
+      - name: Body
+        in: body
+        required: true
+        description: ''
+        schema:
+          $ref: '#/definitions/updaterequest'
       responses:
         '200':
-          description: ''
-          headers: {}
+          description: OK
+          schema:
+            $ref: '#/definitions/update'
+          examples:
+            application/json:
+              message: update successfully
+          headers:
+            Date:
+              type: string
+              default: Mon, 17 Jul 2023 16:25:39 GMT
+            Content-Length:
+              type: string
+              default: '34'
+    delete:
+      summary: Delete
+      tags:
+      - Misc
+      operationId: Delete
+      deprecated: false
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+        format: int32
+        description: ''
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Delete'
+          examples:
+            application/json:
+              message: delete successfully
+          headers:
+            Date:
+              type: string
+              default: Mon, 17 Jul 2023 16:25:57 GMT
+            Content-Length:
+              type: string
+              default: '34'
+definitions:
+  getall:
+    title: getall
+    example:
+      Id: 1
+      Name: aku ke-1
+      Age: 15
+      DateOfBirth: 1995-12-12T00:00:00+07:00
+      UpdatedAt: 2023-07-17T23:07:03+07:00
+      CreatedAt: 2023-07-17T23:07:03+07:00
+      DeletedAt: 0001-01-01T00:00:00Z
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int32
+      Name:
+        type: string
+      Age:
+        type: integer
+        format: int32
+      DateOfBirth:
+        type: string
+      UpdatedAt:
+        type: string
+      CreatedAt:
+        type: string
+      DeletedAt:
+        type: string
+    required:
+    - Id
+    - Name
+    - Age
+    - DateOfBirth
+    - UpdatedAt
+    - CreatedAt
+    - DeletedAt
+  getdetail:
+    title: getdetail
+    example:
+      Id: 7
+      Name: yasin
+      Age: 29
+      DateOfBirth: 1995-12-12T00:00:00+07:00
+      UpdatedAt: 2023-07-17T23:07:37+07:00
+      CreatedAt: 2023-07-17T23:07:37+07:00
+      DeletedAt: 0001-01-01T00:00:00Z
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int32
+      Name:
+        type: string
+      Age:
+        type: integer
+        format: int32
+      DateOfBirth:
+        type: string
+      UpdatedAt:
+        type: string
+      CreatedAt:
+        type: string
+      DeletedAt:
+        type: string
+    required:
+    - Id
+    - Name
+    - Age
+    - DateOfBirth
+    - UpdatedAt
+    - CreatedAt
+    - DeletedAt
+  updaterequest:
+    title: updaterequest
+    example:
+      name: aku ke-10
+    type: object
+    properties:
+      name:
+        type: string
+    required:
+    - name
+  update:
+    title: update
+    example:
+      message: update successfully
+    type: object
+    properties:
+      message:
+        type: string
+    required:
+    - message
+  Delete:
+    title: Delete
+    example:
+      message: delete successfully
+    type: object
+    properties:
+      message:
+        type: string
+    required:
+    - message
+  CreateRequest:
+    title: CreateRequest
+    example:
+      name: yasin
+      age: 29
+      date_of_birth: 1995-12-12
+    type: object
+    properties:
+      name:
+        type: string
+      age:
+        type: integer
+        format: int32
+      date_of_birth:
+        type: string
+    required:
+    - name
+    - age
+    - date_of_birth
+  NewRequest:
+    title: NewRequest
+    example:
+      message: create successfully
+    type: object
+    properties:
+      message:
+        type: string
+    required:
+    - message
 tags:
 - name: Misc
   description: ''
