@@ -3,7 +3,7 @@
 #running seeder
 ```
 go run cmd/main.go
-``````
+```
 
 #running app locally
 ```
