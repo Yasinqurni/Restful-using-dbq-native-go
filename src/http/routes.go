@@ -14,5 +14,6 @@ func RouteInit(router *mux.Router, db *sql.DB, env *config.Config) {
 
 	router.HandleFunc("/student/{id}", studentController.GetByID).Methods("GET")
 	router.HandleFunc("/student", studentController.Get).Methods("GET")
+	router.HandleFunc("/student/{id}", studentController.Update).Methods("PUT")
 
 }

@@ -69,3 +69,23 @@ func (r *studentRepository) GetByID(id uint, ctx context.Context) (*model.Studen
 	return result, nil
 
 }
+
+func (r *studentRepository) Update(name string, id uint, ctx context.Context) error {
+	duration, err := time.ParseDuration(r.config.CustomTimout)
+	if err != nil {
+		return err
+	}
+
+	ctx, cancel := context.WithTimeout(ctx, duration)
+	defer cancel()
+
+	stmt := fmt.Sprintf("UPDATE %s SET name = ? WHERE id = ?", student.GetTableName())
+	opts := &dbq.Options{SingleResult: true, ConcreteStruct: student, DecoderConfig: dbq.StdTimeConversionConfig()}
+
+	_, err = dbq.E(ctx, r.db, stmt, opts, name, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
