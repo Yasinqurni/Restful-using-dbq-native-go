@@ -8,7 +8,7 @@ type Student struct {
 	Id          uint      `dbq:"id"`
 	Name        string    `dbq:"name"`
 	Age         uint      `dbq:"age"`
-	DateOfBirth time.Time `dbq:"date_of_birth"`
+	DateOfBirth string    `dbq:"date_of_birth"`
 	UpdatedAt   time.Time `dbq:"updated_at"`
 	CreatedAt   time.Time `dbq:"created_at"`
 	DeletedAt   time.Time `dbq:"deleted_at"`

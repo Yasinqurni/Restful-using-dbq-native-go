@@ -2,8 +2,10 @@ package service
 
 import (
 	"context"
+	request "github-dbq/src/http/requests"
 	model "github-dbq/src/models"
 	repository "github-dbq/src/repositories"
+	"time"
 )
 
 type studentService struct {
@@ -40,4 +42,17 @@ func (s *studentService) Update(name string, id uint) error {
 func (s *studentService) Delete(id uint) error {
 	ctx := context.Background()
 	return s.repository.Delete(id, ctx)
+}
+
+func (s *studentService) Create(student request.CreateRequest) error {
+	ctx := context.Background()
+
+	data := model.Student{
+		Name:        student.Name,
+		Age:         student.Age,
+		DateOfBirth: student.DateOfBirth,
+		UpdatedAt:   time.Now(),
+		CreatedAt:   time.Now(),
+	}
+	return s.repository.Create(data, ctx)
 }

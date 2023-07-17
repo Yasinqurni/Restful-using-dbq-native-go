@@ -16,7 +16,7 @@ func StudentSeed(db *sql.DB) {
 		student := model.Student{
 			Name:        fmt.Sprintf("aku ke-%d", i+1),
 			Age:         15,
-			DateOfBirth: time.Now().AddDate(1995, 12, 12),
+			DateOfBirth: "1995-12-12",
 			CreatedAt:   time.Now(),
 			UpdatedAt:   time.Now(),
 		}

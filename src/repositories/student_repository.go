@@ -112,3 +112,34 @@ func (r *studentRepository) Delete(id uint, ctx context.Context) error {
 
 	return nil
 }
+
+func (r *studentRepository) Create(student model.Student, ctx context.Context) error {
+
+	duration, err := time.ParseDuration(r.config.CustomTimout)
+	if err != nil {
+		return err
+	}
+
+	ctx, cancel := context.WithTimeout(ctx, duration)
+	defer cancel()
+
+	stmt := fmt.Sprintf("INSERT INTO %s (name, age, date_of_birth, created_at, updated_at) VALUES (?, ?, ?, ?, ?)", student.GetTableName())
+	opts := &dbq.Options{SingleResult: true, ConcreteStruct: student, DecoderConfig: dbq.StdTimeConversionConfig()}
+
+	_, err = dbq.E(
+		ctx,
+		r.db,
+		stmt,
+		opts,
+		student.Name,
+		student.Age,
+		student.DateOfBirth,
+		student.CreatedAt,
+		student.UpdatedAt,
+	)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
