@@ -2,9 +2,12 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	service "github-dbq/src/services"
 	"net/http"
 	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 type studentController struct {
@@ -31,7 +34,9 @@ func (c *studentController) Get(w http.ResponseWriter, r *http.Request) {
 
 func (c *studentController) GetByID(w http.ResponseWriter, r *http.Request) {
 
-	id := r.URL.Query().Get("id")
+	vars := mux.Vars(r)
+	id := vars["id"]
+	fmt.Println(id)
 	num, _ := strconv.ParseUint(id, 10, 64)
 
 	student, err := c.service.GetByID(uint(num))

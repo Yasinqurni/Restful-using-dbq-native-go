@@ -48,23 +48,24 @@ func (r *studentRepository) Get(ctx context.Context) ([]*model.Student, error) {
 
 func (r *studentRepository) GetByID(id uint, ctx context.Context) (*model.Student, error) {
 
-	query := "SELECT * FROM students WHERE id = ?"
-	row := r.db.QueryRowContext(ctx, query, id)
-
-	var student model.Student
-	err := row.Scan(
-		&student.Id,
-		&student.Name,
-		&student.Age,
-		&student.CreatedAt,
-		&student.DeletedAt,
-	)
+	duration, err := time.ParseDuration(r.config.CustomTimout)
 	if err != nil {
-		if err == sql.ErrNoRows {
-			return nil, fmt.Errorf("student not found")
-		}
 		return nil, err
 	}
-	return &student, nil
+
+	ctx, cancel := context.WithTimeout(ctx, duration)
+	defer cancel()
+
+	stmt := fmt.Sprintf("SELECT * FROM %s WHERE id = ?", student.GetTableName())
+	opts := &dbq.Options{SingleResult: true, ConcreteStruct: student, DecoderConfig: dbq.StdTimeConversionConfig()}
+	data := dbq.MustQ(ctx, r.db, stmt, opts, id)
+
+	if data == nil {
+		return nil, errors.New("students not found")
+	}
+
+	result := data.(*model.Student)
+
+	return result, nil
 
 }

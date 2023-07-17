@@ -24,7 +24,7 @@ func (s *studentService) Get() ([]*model.Student, error) {
 }
 
 func (s *studentService) GetByID(id uint) (*model.Student, error) {
-	var ctx context.Context
+	ctx := context.Background()
 	student, err := s.repository.GetByID(id, ctx)
 	if err != nil {
 		return nil, err
