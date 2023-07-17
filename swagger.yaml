@@ -1,0 +1,46 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Salt Academy
+  contact: {}
+host: localhost:port
+basePath: /
+securityDefinitions: {}
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /student:
+    get:
+      summary: get all
+      tags:
+      - Misc
+      operationId: getall
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /:
+    get:
+      summary: update
+      tags:
+      - Misc
+      operationId: update
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+tags:
+- name: Misc
+  description: ''
