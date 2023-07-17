@@ -36,3 +36,8 @@ func (s *studentService) Update(name string, id uint) error {
 	ctx := context.Background()
 	return s.repository.Update(name, id, ctx)
 }
+
+func (s *studentService) Delete(id uint) error {
+	ctx := context.Background()
+	return s.repository.Delete(id, ctx)
+}

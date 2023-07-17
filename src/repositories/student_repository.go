@@ -89,3 +89,26 @@ func (r *studentRepository) Update(name string, id uint, ctx context.Context) er
 
 	return nil
 }
+
+func (r *studentRepository) Delete(id uint, ctx context.Context) error {
+	//soft delete
+	duration, err := time.ParseDuration(r.config.CustomTimout)
+	if err != nil {
+		return err
+	}
+
+	ctx, cancel := context.WithTimeout(ctx, duration)
+	defer cancel()
+	//hard delete
+	//DELETE FROM %s WHERE id = ?
+	deleted := time.Now()
+	stmt := fmt.Sprintf("UPDATE %s SET deleted_at = ? WHERE id = ?", student.GetTableName())
+	opts := &dbq.Options{SingleResult: true, ConcreteStruct: student, DecoderConfig: dbq.StdTimeConversionConfig()}
+
+	_, err = dbq.E(ctx, r.db, stmt, opts, deleted, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

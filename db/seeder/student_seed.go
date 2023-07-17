@@ -18,7 +18,7 @@ func StudentSeed(db *sql.DB) {
 			Age:         15,
 			DateOfBirth: time.Now().AddDate(1995, 12, 12),
 			CreatedAt:   time.Now(),
-			DeletedAt:   time.Now(),
+			UpdatedAt:   time.Now(),
 		}
 		students[i] = student
 	}
@@ -30,7 +30,7 @@ func StudentSeed(db *sql.DB) {
 	}
 
 	// Buat prepared statement
-	stmt, err := tx.Prepare("INSERT INTO students (id, name, age, date_of_birth, created_at, deleted_at) VALUES (?, ?, ?, ?, ?, ?)")
+	stmt, err := tx.Prepare("INSERT INTO students (id, name, age, date_of_birth, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -38,7 +38,7 @@ func StudentSeed(db *sql.DB) {
 
 	// Eksekusi prepared statement untuk setiap data
 	for _, student := range students {
-		_, err = stmt.Exec(student.Id, student.Name, student.Age, student.DateOfBirth, student.CreatedAt, student.DeletedAt)
+		_, err = stmt.Exec(student.Id, student.Name, student.Age, student.DateOfBirth, student.CreatedAt, student.UpdatedAt)
 		if err != nil {
 			log.Fatal(err)
 		}
