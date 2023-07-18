@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	model "github-dbq/src/models"
-	repository "github-dbq/src/repositories"
+	model "github-dbq/src/student/models"
+	repository "github-dbq/src/student/repositories"
 )
 
 type studentService struct {

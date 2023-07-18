@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	model "github-dbq/src/models"
+	model "github-dbq/src/student/models"
 )
 
 type studentRepository struct {

@@ -3,7 +3,7 @@ package seeder
 import (
 	"database/sql"
 	"fmt"
-	model "github-dbq/src/models"
+	model "github-dbq/src/student/models"
 	"log"
 	"time"
 )

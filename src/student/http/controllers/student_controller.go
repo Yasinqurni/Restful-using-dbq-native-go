@@ -2,7 +2,7 @@ package controller
 
 import (
 	"encoding/json"
-	service "github-dbq/src/services"
+	service "github-dbq/src/student/services"
 	"net/http"
 	"strconv"
 )

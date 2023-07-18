@@ -2,7 +2,7 @@ package routes
 
 import (
 	"database/sql"
-	"github-dbq/src"
+	src "github-dbq/src/student"
 
 	"github.com/gorilla/mux"
 )
