@@ -10,15 +10,19 @@ import (
 
 type studentService struct {
 	repository repository.StudentRepository
+	ctx        context.Context
 }
 
 func StudentServiceImpl(repository repository.StudentRepository) StudentService {
-	return &studentService{repository: repository}
+	return &studentService{
+		repository: repository,
+		ctx:        context.Background(),
+	}
 }
 
 func (s *studentService) Get() ([]*model.Student, error) {
-	ctx := context.Background()
-	students, err := s.repository.Get(ctx)
+
+	students, err := s.repository.Get(s.ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -26,8 +30,8 @@ func (s *studentService) Get() ([]*model.Student, error) {
 }
 
 func (s *studentService) GetByID(id uint) (*model.Student, error) {
-	ctx := context.Background()
-	student, err := s.repository.GetByID(id, ctx)
+
+	student, err := s.repository.GetByID(id, s.ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -35,17 +39,16 @@ func (s *studentService) GetByID(id uint) (*model.Student, error) {
 }
 
 func (s *studentService) Update(name string, id uint) error {
-	ctx := context.Background()
-	return s.repository.Update(name, id, ctx)
+
+	return s.repository.Update(name, id, s.ctx)
 }
 
 func (s *studentService) Delete(id uint) error {
-	ctx := context.Background()
-	return s.repository.Delete(id, ctx)
+
+	return s.repository.Delete(id, s.ctx)
 }
 
 func (s *studentService) Create(student request.CreateRequest) error {
-	ctx := context.Background()
 
 	data := model.Student{
 		Name:        student.Name,
@@ -54,5 +57,5 @@ func (s *studentService) Create(student request.CreateRequest) error {
 		UpdatedAt:   time.Now(),
 		CreatedAt:   time.Now(),
 	}
-	return s.repository.Create(data, ctx)
+	return s.repository.Create(data, s.ctx)
 }
