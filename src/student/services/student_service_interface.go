@@ -1,8 +1,8 @@
 package service
 
 import (
-	request "github-dbq/src/http/requests"
-	model "github-dbq/src/models"
+	request "github-dbq/src/student/http/requests"
+	model "github-dbq/src/student/models"
 )
 
 type StudentService interface {

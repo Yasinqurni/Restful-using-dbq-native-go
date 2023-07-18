@@ -3,9 +3,9 @@ package src
 import (
 	"database/sql"
 	"github-dbq/config"
-	controller "github-dbq/src/http/controllers"
-	repository "github-dbq/src/repositories"
-	service "github-dbq/src/services"
+	controller "github-dbq/src/student/http/controllers"
+	repository "github-dbq/src/student/repositories"
+	service "github-dbq/src/student/services"
 )
 
 func InitModule(db *sql.DB, env *config.Config) (controller.StudentController, service.StudentService, repository.StudentRepository) {

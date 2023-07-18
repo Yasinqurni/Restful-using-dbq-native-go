@@ -2,9 +2,9 @@ package service
 
 import (
 	"context"
-	request "github-dbq/src/http/requests"
-	model "github-dbq/src/models"
-	repository "github-dbq/src/repositories"
+	request "github-dbq/src/student/http/requests"
+	model "github-dbq/src/student/models"
+	repository "github-dbq/src/student/repositories"
 	"time"
 )
 

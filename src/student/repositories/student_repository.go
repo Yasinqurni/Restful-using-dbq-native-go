@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"github-dbq/config"
-	model "github-dbq/src/models"
+	model "github-dbq/src/student/models"
 	"time"
 
 	"github.com/rocketlaunchr/dbq/v2"

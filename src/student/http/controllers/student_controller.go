@@ -3,8 +3,8 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
-	request "github-dbq/src/http/requests"
-	service "github-dbq/src/services"
+	request "github-dbq/src/student/http/requests"
+	service "github-dbq/src/student/services"
 	"io"
 	"net/http"
 	"strconv"

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github-dbq/config"
-	routes "github-dbq/src/http"
+	routes "github-dbq/src/student/http"
 	"log"
 	"net/http"
 
