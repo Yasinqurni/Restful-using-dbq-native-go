@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	request "github-dbq/src/student/http/requests"
+	"github-dbq/src/student/http/response"
 	service "github-dbq/src/student/services"
 	"io"
 	"net/http"
@@ -11,6 +12,8 @@ import (
 
 	"github.com/gorilla/mux"
 )
+
+var StudentResponse response.StudentResponse
 
 type studentController struct {
 	service service.StudentService
@@ -30,8 +33,10 @@ func (c *studentController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	response := StudentResponse.List(students)
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(students)
+	json.NewEncoder(w).Encode(response)
 }
 
 func (c *studentController) GetByID(w http.ResponseWriter, r *http.Request) {
@@ -49,8 +54,10 @@ func (c *studentController) GetByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	response := StudentResponse.Detail(student)
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(student)
+	json.NewEncoder(w).Encode(response)
 }
 
 func (c *studentController) Update(w http.ResponseWriter, r *http.Request) {
