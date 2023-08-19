@@ -1,6 +1,9 @@
 package value_object
 
-import "errors"
+import (
+	"errors"
+	"restful-api/pkg"
+)
 
 type Gender struct {
 	value string
@@ -14,7 +17,7 @@ const (
 func (g *Gender) GetGender(gender string) (*Gender, error) {
 
 	if gender != GENDER_MALE && gender != GENDER_FEMALE {
-		return nil, errors.New("please input valid gender")
+		return nil, errors.New(pkg.ERROR_GENDER)
 	}
 	g.value = gender
 

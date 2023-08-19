@@ -1,6 +1,9 @@
 package value_object
 
-import "errors"
+import (
+	"errors"
+	"restful-api/pkg"
+)
 
 type Role struct {
 	value string
@@ -12,9 +15,8 @@ const (
 )
 
 func (r *Role) NewRole(role string) (*Role, error) {
-
 	if role != ROLE_ADMIN && role != ROLE_USER {
-		return nil, errors.New("please input valid role")
+		return nil, errors.New(pkg.ERROR_ROLE)
 	}
 	r.value = role
 
