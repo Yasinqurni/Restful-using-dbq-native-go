@@ -9,11 +9,15 @@ type Password struct {
 	value string
 }
 
-func (p *Password) NewPassword(password string) (*Password, error) {
+func (p Password) NewPassword(password string) (*Password, error) {
 	if len(password) != 6 {
 		return nil, errors.New(pkg.ERROR_PASSWORD)
 	}
 	p.value = password
 
-	return p, nil
+	return &p, nil
+}
+
+func (e Password) GetPassword() string {
+	return e.value
 }

@@ -14,11 +14,15 @@ const (
 	ROLE_USER  = "user"
 )
 
-func (r *Role) NewRole(role string) (*Role, error) {
+func (r Role) NewRole(role string) (*Role, error) {
 	if role != ROLE_ADMIN && role != ROLE_USER {
 		return nil, errors.New(pkg.ERROR_ROLE)
 	}
 	r.value = role
 
-	return r, nil
+	return &r, nil
+}
+
+func (e Role) GetRole() string {
+	return e.value
 }

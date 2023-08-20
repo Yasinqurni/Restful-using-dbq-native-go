@@ -14,12 +14,16 @@ const (
 	GENDER_FEMALE = "female"
 )
 
-func (g *Gender) GetGender(gender string) (*Gender, error) {
+func (g Gender) NewGender(gender string) (*Gender, error) {
 
 	if gender != GENDER_MALE && gender != GENDER_FEMALE {
 		return nil, errors.New(pkg.ERROR_GENDER)
 	}
 	g.value = gender
 
-	return g, nil
+	return &g, nil
+}
+
+func (e Gender) GetGender() string {
+	return e.value
 }

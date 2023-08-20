@@ -38,18 +38,18 @@ func NewItem(dto ItemDTO) (*Item, error) {
 	}, nil
 }
 
-func (e *Item) GetName() string {
+func (e Item) GetName() string {
 	return e.name
 }
 
-func (e *Item) GetCategory() string {
+func (e Item) GetCategory() string {
 	return e.category
 }
 
-func (e *Item) GetPrice() uint64 {
+func (e Item) GetPrice() uint64 {
 	return e.price
 }
 
-func (e *Item) GetQty() uint32 {
+func (e Item) GetQty() uint32 {
 	return e.quantity
 }
