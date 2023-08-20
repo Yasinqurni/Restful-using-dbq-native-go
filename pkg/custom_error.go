@@ -9,7 +9,7 @@ const (
 	ERROR_PASSWORD = "please input valid password"
 )
 
-//for error entitty
+//for error entity
 const (
 	EMPTY_NAME = "name must be stated"
 )
