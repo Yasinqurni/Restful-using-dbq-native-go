@@ -13,3 +13,8 @@ const (
 const (
 	EMPTY_NAME = "name must be stated"
 )
+
+//for error repository
+const (
+	NOT_FOUND_ITEM = "item not found"
+)

@@ -25,9 +25,6 @@ type UserDTO struct {
 	Password string
 	Role     string
 	Gender   string
-
-	//relation with item
-	Item []*Item
 }
 
 func NewUser(dto UserDTO) (*User, error) {
@@ -63,8 +60,12 @@ func NewUser(dto UserDTO) (*User, error) {
 		password: password,
 		role:     role,
 		gender:   gender,
-		item:     dto.Item,
 	}, nil
+}
+
+func (e *User) SetItems(items []*Item) *User {
+	e.item = items
+	return e
 }
 
 func (e User) GetName() string {

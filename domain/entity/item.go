@@ -20,9 +20,6 @@ type ItemDTO struct {
 	Category string
 	Price    uint64
 	Quantity uint32
-
-	//relation for user
-	User *User
 }
 
 func NewItem(dto ItemDTO) (*Item, error) {
@@ -34,8 +31,12 @@ func NewItem(dto ItemDTO) (*Item, error) {
 		category: dto.Category,
 		price:    dto.Price,
 		quantity: dto.Quantity,
-		user:     dto.User,
 	}, nil
+}
+
+func (e *Item) SetUser(user *User) *Item {
+	e.user = user
+	return e
 }
 
 func (e Item) GetName() string {

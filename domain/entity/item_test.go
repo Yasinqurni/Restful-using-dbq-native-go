@@ -30,7 +30,6 @@ func TestItemEntity(t *testing.T) {
 				Category: "handphone",
 				Price:    2500000,
 				Quantity: 10,
-				User:     nil,
 			},
 			expected: &expected{
 				Name:     "realme 5 pro",
@@ -48,7 +47,6 @@ func TestItemEntity(t *testing.T) {
 				Category: "handphone",
 				Price:    2500000,
 				Quantity: 10,
-				User:     nil,
 			},
 			expected: nil,
 			isError:  true,
